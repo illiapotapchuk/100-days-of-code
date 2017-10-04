@@ -79,7 +79,6 @@ function main() {
     }
 
     if(a[a.length-1] > 0) {
-        count++;
         console.log(1);
     }
 }
