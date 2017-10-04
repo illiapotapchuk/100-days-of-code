@@ -62,7 +62,6 @@ function main() {
     var a = mergeSort(arr);
 
     var sum = 0;
-    var count = 0;
 
     for( var i = 0; i < a.length-1; i++ ) {
         if(a[a.length-1] <= 0) 
@@ -71,7 +70,6 @@ function main() {
         if(a[i] > 0) {
             sum += a[i];
             a[a.length-1] -= a[i];
-            count++;
             console.log(a.length-i);
         }
 
