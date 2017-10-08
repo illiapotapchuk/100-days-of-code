@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			(function() {
+
+				var quicksort = function(a) {
+					var doSort = function(a, left, right) {
+						if(left < right) {
+							var pivot = a[parseInt((right + left)/2)];
+							var index = partition(a, left, right, pivot);
+							doSort(a, left, index-1);
+							doSort(a, index, right);
+						}
+
+						return a;
+					}
+
+					var partition = function(a, left, right, pivot) {
+						while(left <= right) {
+							while(a[left] < pivot) {
+								left++;
+							}
+
+							while(a[right] > pivot) {
+								right--;
+							}
+
+							if(left <= right) {
+								swap(a, left, right);
+								left++;
+								right--;
+							}
+						}
+
+						return left;
+					}
+
+					var swap = function(a, i, j) {
+						var temp = a[i];
+						a[i] = a[j];
+						a[j] = temp;
+					}
+
+					return doSort(a, 0, a.length-1);
+
+
+				}
+
+				var a = [0,6,7,4,3,1,2,8,9];
+
+				console.log(quicksort( a ));
+
+			}());
+		</script>
+		<!-- <link type="text/css" rel="stylesheet" href="./assets/css/style.css"> -->
+	</head>
+
+	<body>
+
+	</body>
+</html>
