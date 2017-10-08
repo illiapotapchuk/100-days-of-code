@@ -1,6 +1,3 @@
-//  https://www.hackerrank.com/challenges/closest-numbers
-
-
 function processData(input) {
     var a = input.split('\n')[1].split(' ').map(Number);
 
@@ -47,16 +44,12 @@ function processData(input) {
 
     a = quicksort(a);
 
-    var min;
-    var pairs = [];
+    var min = a[1] - a[0];
+    var pairs = [a[0] + " " + a[1]];
     var diff;
 
-    for(var i = 0; i < a.length; i++) {
+    for(var i = 1; i < a.length; i++) {
         diff = a[i+1] - a[i];
-        if(typeof min === "undefined") {
-            min = diff;
-            pairs.push(a[i] + " " + a[i+1]);
-        }
 
         if(diff < min) {
             pairs = [a[i] + " " + a[i+1]];
