@@ -1,3 +1,5 @@
+//  https://www.hackerrank.com/challenges/chocolate-feast
+
 process.stdin.resume();
 process.stdin.setEncoding('ascii');
 
