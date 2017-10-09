@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			(function() {
+
+				var firstRecurring = function(s) {
+				  var metChars = {};
+				  var rank = 1;
+				  var minRankChar;
+				  var minRank = null;
+
+				  for(var i = 0; i < s.length; i++) {
+				    if(typeof metChars[s[i]] === "undefined") {
+				      metChars[s[i]] = rank;
+				      rank++;
+				    } else if(minRank === null || metChars[s[i]] < minRank) {
+				      minRankChar = s[i];
+				      minRank = metChars[s[i]];
+				    }
+				  }
+
+				  return minRankChar;
+				}
+
+        console.log(firstRecurring("ABC"));
+
+			}());
+		</script>
+		<!-- <link type="text/css" rel="stylesheet" href="./assets/css/style.css"> -->
+	</head>
+
+	<body>
+
+	</body>
+</html>
