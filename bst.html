@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			(function() {
+
+				var newNode = function(data) {
+          return {
+            data: data,
+            left: null,
+            right: null
+          };
+        }
+
+        var insert = function(root, data) {
+          if(root === null) {
+            root = newNode(data);
+          } else if(data < root.data) {
+            root.left = insert(root.left, data);
+          } else {
+            root.right = insert(root.right, data);
+          }
+
+          return root;
+        }
+
+        var search = function(root, value) {
+          if(root === null) {
+            return false;
+          }
+
+          if(value < root.data) {
+            return search(root.left, value);
+          } else if(value > root.data) {
+            return search(root.right, value);
+          } else {
+            return true;
+          }
+        }
+
+        var findMin = function(root) {
+          if(root === null) {
+            return null;
+          }
+
+          while(root.left) {
+            root = root.left;
+          }
+
+          return root.data;
+        }
+
+        var findMinRec = function(root) {
+          if(root === null) {
+            return null;
+          }
+
+          if(root.left) {
+            return findMinRec(root.left);
+          } else {
+            return root.data;
+          }
+        }
+
+        var findMax = function(root) {
+          if(root === null) {
+            return null;
+          }
+
+          while(root.right) {
+            root = root.right;
+          }
+
+          return root.data;
+        }
+
+        var findMaxRec = function(root) {
+          if(root === null) {
+            return null;
+          }
+
+          if(root.right) {
+            return findMaxRec(root.right);
+          } else {
+            return root.data;
+          }
+        }
+
+        var height = function(root) {
+          if(root === null) {
+            return -1;
+          }
+
+          return Math.max(height(root.left), height(root.right)) + 1;
+        }
+
+        var levelOrderTraversal = function(root) {
+          if(root !== null) {
+            var queue = [];
+            queue.push(root);
+            while(queue.length) {
+              var current = queue.shift();
+              console.log(current.data);
+              if(current.left !== null) {
+                queue.push(current.left);
+              }
+              if(current.right !== null) {
+                queue.push(current.right);
+              }
+            }
+          }
+        }
+
+        var inorderTraversal = function(root) {
+          if(root !== null) {
+            inorderTraversal(root.left);
+            console.log(root.data);
+            inorderTraversal(root.right);
+          }
+        }
+
+        var preorderTraversal = function(root) {
+          if(root !== null) {
+            console.log(root.data);
+            preorderTraversal(root.left);
+            preorderTraversal(root.right);
+          }
+        }
+
+        var postorderTraversal = function(root) {
+          if(root !== null) {
+            postorderTraversal(root.left);
+            postorderTraversal(root.right);
+            console.log(root.data);
+          }
+        }
+
+        var allValuesLesser = function(root, data) {
+          if(root === null) {
+            return true;
+          }
+          if(root.data < data && allValuesLesser(root.left, root.data) && allValuesGreater(root.right, root.data)) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        var allValuesGreater = function(root, data) {
+          if(root === null) {
+            return true;
+          }
+          if(root.data > data && allValuesLesser(root.left, root.data) && allValuesGreater(root.right, root.data)) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        var isBSTBad = function(root) {
+          if(root === null) {
+            return true;
+          }
+
+          if(
+            allValuesLesser(root.left, root.data) && allValuesGreater(root.right, root.data)
+            && isBSTBad(root.left) && isBSTBad(root.right)
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        var isBST = function(root) {
+          var isBST = function(root, lower, upper) {
+            if(root === null) {
+              return true;
+            }
+
+            if(
+              root.data > lower &&  root.data < upper
+              && isBST(root.left, lower, root.data)
+              && isBST(root.right, root.data, upper)
+            ) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+
+          return isBST(root, -Infinity, Infinity);
+        }
+
+        var deleteNode = function(root, value) {
+          if(root === null) {
+            return null;
+          } else if(value < root.data) {
+            root.left = deleteNode(root.left, value);
+          } else if(value > root.data) {
+            root.right = deleteNode(root.right, value);
+          } else {
+            if(root.left === null && root.right === null) {
+                root = null;
+            } else if(root.left === null) {
+              root = root.right;
+            } else if(root.right === null) {
+              root = root.left;
+            } else {
+              root.data = findMin(root.right);
+              root.right = deleteNode(root.right, root.data);
+            }
+          }
+
+          return root;
+        }
+
+        var findNode = function(root, value) {
+          if(root === null) {
+            return null;
+          }
+
+          if(value < root.data) {
+            return findNode(root.left, value);
+          } else if(value > root.data) {
+            return findNode(root.right, value);
+          } else {
+            return root;
+          }
+        }
+
+        var getInorderSuccessor = function(root, data) {
+          var current = findNode(root, data);
+          if(current === null) {
+            return null
+          }
+
+          if(current.right !== null) {
+            return findMin(current.right);
+          } else {
+            var successor = null;
+            var ancestor = root;
+
+            while(ancestor != current) {
+              if(current.data < ancestor.data) {
+                successor = ancestor;
+                ancestor = ancestor.left;
+              } else {
+                ancestor = ancestor.right;
+              }
+            }
+
+            return successor.data;
+          }
+        }
+
+        var root = null;
+
+        root = insert(root, 15);
+        root = insert(root, 10);
+        root = insert(root, 20);
+        root = insert(root, 25);
+        root = insert(root, 8);
+        root = insert(root, 12);
+        root = insert(root, 13);
+        root = insert(root, 16);
+
+        // root.left.left.data = 35;
+
+        // console.log(levelOrderTraversal(root));
+        // inorderTraversal(root);
+        // console.log("--------------------------------------------------")
+        // preorderTraversal(root);
+        // console.log("--------------------------------------------------")
+        // postorderTraversal(root);
+
+        // console.log(isBST(root));
+
+        console.log(getInorderSuccessor(root, 16));
+
+			}());
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+</html>
