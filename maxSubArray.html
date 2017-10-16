@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			(function() {
+
+				var maxSubArray = function(a) {
+					var overallMax = 0;
+					var currentMax = 0;
+
+					for(var i = 0; i < a.length; i++) {
+						currentMax = Math.max(0, currentMax + a[i]);
+						overallMax = Math.max(overallMax, currentMax);
+					}
+
+					return overallMax;
+				}
+
+        console.log(maxSubArray([-5, 0, -4, 1, 4, 3, -2, -1, 2, -3]));
+
+			}());
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+</html>
